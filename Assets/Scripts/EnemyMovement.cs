@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
     // Reference to the player's transform.
     public Transform player;
+    private Animator anim;
 
     // Reference to the NavMeshAgent component for pathfinding.
     private NavMeshAgent navMeshAgent;
@@ -16,6 +17,11 @@ public class EnemyMovement : MonoBehaviour
     {
         // Get and store the NavMeshAgent component attached to this object.
         navMeshAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
+        if (anim)
+        {
+            anim.SetFloat("speed_f", navMeshAgent.speed);
+        }
     }
 
     // Update is called once per frame.
@@ -23,9 +29,12 @@ public class EnemyMovement : MonoBehaviour
     {
         // If there's a reference to the player...
         if (player != null)
-        {    
+        {
             // Set the enemy's destination to the player's current position.
             navMeshAgent.SetDestination(player.position);
+        }
+        else { 
+            anim.SetFloat("speed_f", 0);
         }
     }
 }

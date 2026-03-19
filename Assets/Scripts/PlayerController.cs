@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
 
     // UI object to display winning text.
-    public GameObject winTextObject;
+    public TextMeshProUGUI winText;
 
     // Start is called before the first frame update.
     void Start()
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
                 SetCountText();
 
         // Initially set the win text to be inactive.
-                winTextObject.SetActive(false);
+                winText.gameObject.SetActive(false);
     }
     
     // This function is called when a move input is detected.
@@ -88,10 +88,9 @@ public class PlayerController : MonoBehaviour
         // Check if the count has reached or exceeded the win condition.
         if (count >= 12)
         {
-            // Display the win text.
-            winTextObject.SetActive(true);
+            winText.gameObject.SetActive(true);
+            winText.text = "You Win!";
 
-            // Destroy the enemy GameObject.
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
     }
@@ -100,13 +99,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Destroy the current object
-            Destroy(gameObject); 
-    
-            // Update the winText to display "You Lose!"
-            winTextObject.gameObject.SetActive(true);
-            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
-    
+            Destroy(gameObject);
+
+            winText.gameObject.SetActive(true);
+            winText.text = "You Lose!";
         }
 
     }
