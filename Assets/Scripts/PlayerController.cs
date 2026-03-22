@@ -9,6 +9,21 @@ public class PlayerController : MonoBehaviour
     // Rigidbody of the player.
     private Rigidbody rb; 
 
+    // Audio Source for when player picks up "PickUp" objects.
+    private AudioSource pickUpSound;
+
+    // Object for Pickup_VFX
+    public GameObject pickupVFXPrefab;
+
+    // Object for Win_VFX
+    public GameObject winVFXPrefab;
+
+    // Object for Loss_VFX
+    public GameObject lossVFXPrefab;
+
+    // Audio Source for when player wins
+    private AudioSource winSound;
+
     // Variable to keep track of collected "PickUp" objects.
     private int count;
 
@@ -40,6 +55,16 @@ public class PlayerController : MonoBehaviour
         // Initially set the win text to be inactive.
                 winText.gameObject.SetActive(false);
     }
+
+    // Called when scene is loaded
+    void Awake()
+    {
+        // When an object has multiple audio sources, they can be
+        // stored as an array
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        pickUpSound = audioSources[0];
+        winSound = audioSources[1];
+    }
     
     // This function is called when a move input is detected.
     void OnMove(InputValue movementValue)
@@ -68,11 +93,18 @@ public class PlayerController : MonoBehaviour
         // Check if the object the player collided with has the "PickUp" tag.
         if (other.gameObject.CompareTag("PickUp")) 
         {
+            // Code from VFX Tutorial
+            if (pickupVFXPrefab != null) {
+                Instantiate(pickupVFXPrefab, transform.position, Quaternion.identity);
+            }
             // Deactivate the collided object (making it disappear).
             other.gameObject.SetActive(false);
 
             // Increment the count of "PickUp" objects collected.
             count = count + 1;
+
+            // Play the PickUp audio
+            pickUpSound.Play();
 
             // Update the count display.
             SetCountText();
@@ -88,8 +120,14 @@ public class PlayerController : MonoBehaviour
         // Check if the count has reached or exceeded the win condition.
         if (count >= 12)
         {
+            // Code from VFX Tutorial
+            if (winVFXPrefab != null) {
+                Instantiate(winVFXPrefab, transform.position, Quaternion.identity);
+            }
             winText.gameObject.SetActive(true);
             winText.text = "You Win!";
+            GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
+            winSound.Play();
 
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
@@ -99,10 +137,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
-
+            // Code from VFX Tutorial
+            if (lossVFXPrefab != null) {
+                Instantiate(lossVFXPrefab, transform.position, Quaternion.identity);
+            }
+            GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
+            collision.gameObject.GetComponentInParent<AudioSource>().Play();
             winText.gameObject.SetActive(true);
             winText.text = "You Lose!";
+
+            Destroy(gameObject);
         }
 
     }
