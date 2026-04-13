@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     // UI object to display winning text.
     public TextMeshProUGUI winText;
 
+    // Reference to the Replay Button object
+    public GameObject replayButton;
+
     // Start is called before the first frame update.
     void Start()
     {
@@ -54,6 +57,10 @@ public class PlayerController : MonoBehaviour
 
         // Initially set the win text to be inactive.
                 winText.gameObject.SetActive(false);
+
+        if (replayButton != null) {
+            replayButton.SetActive(false);
+        }
     }
 
     // Called when scene is loaded
@@ -126,6 +133,11 @@ public class PlayerController : MonoBehaviour
             }
             winText.gameObject.SetActive(true);
             winText.text = "You Win!";
+
+            if (replayButton != null) {
+                replayButton.SetActive(true);
+            }
+
             GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
             winSound.Play();
 
@@ -145,6 +157,10 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.GetComponentInParent<AudioSource>().Play();
             winText.gameObject.SetActive(true);
             winText.text = "You Lose!";
+
+            if (replayButton != null) {
+                replayButton.SetActive(true);
+            }
 
             Destroy(gameObject);
         }
