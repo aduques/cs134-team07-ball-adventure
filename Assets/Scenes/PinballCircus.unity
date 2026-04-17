@@ -1192,6 +1192,7 @@ RectTransform:
   - {fileID: 507901615}
   - {fileID: 1951650279}
   - {fileID: 1579358799}
+  - {fileID: 939340724}
   m_Father: {fileID: 1671244784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9412,6 +9413,18 @@ MonoBehaviour:
           m_StringArgument: FourSeasons
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &631687100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12156,12 +12169,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939340721}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1671244784}
+  m_Father: {fileID: 91752501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -25730,7 +25743,6 @@ RectTransform:
   m_Children:
   - {fileID: 1468227283}
   - {fileID: 1917986498}
-  - {fileID: 939340724}
   - {fileID: 571394183}
   - {fileID: 207949640}
   - {fileID: 479404650}
@@ -27078,7 +27090,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 4b4fa62ddbda64ce4a3e8b3a68ce3404, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c7aa60923a359b64dbb595c20f204183, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1747573196
 PrefabInstance:
