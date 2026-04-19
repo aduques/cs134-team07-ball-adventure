@@ -150,11 +150,14 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // Code from VFX Tutorial
-            if (lossVFXPrefab != null) {
+            if (lossVFXPrefab != null)
+            {
                 Instantiate(lossVFXPrefab, transform.position, Quaternion.identity);
             }
+
             GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
             collision.gameObject.GetComponentInParent<AudioSource>().Play();
+            Destroy(gameObject);
             winText.gameObject.SetActive(true);
             winText.text = "You Lose!";
 
@@ -162,7 +165,7 @@ public class PlayerController : MonoBehaviour
                 replayButton.SetActive(true);
             }
 
-            Destroy(gameObject);
+            
         }
 
     }
