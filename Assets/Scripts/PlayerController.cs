@@ -138,7 +138,11 @@ public class PlayerController : MonoBehaviour
                 replayButton.SetActive(true);
             }
 
-            GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
+            // Hard code solution to fix bug that occurs when Pinball_Background does not exist in Four Seasons level
+            GameObject pinballBG = GameObject.Find("Pinball_Background");
+            if (pinballBG != null) {
+                GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
+            }
             winSound.Play();
 
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
@@ -155,9 +159,24 @@ public class PlayerController : MonoBehaviour
                 Instantiate(lossVFXPrefab, transform.position, Quaternion.identity);
             }
 
-            GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
-            collision.gameObject.GetComponentInParent<AudioSource>().Play();
-            Destroy(gameObject);
+            // Hard code solution to fix bug that occurs when Pinball_Background does not exist in Four Seasons level
+            GameObject pinballBG = GameObject.Find("Pinball_Background");
+            if (pinballBG != null) {
+                GameObject.Find("Pinball_Background").GetComponent<AudioSource>().Stop();
+            }
+
+            // Hard code solution to fix lose audio not playing because the audio listener is moved
+            // from the main camera to the player object in the Four Seasons level
+            AudioSource enemySource = collision.gameObject.GetComponentInParent<AudioSource>();
+            if (enemySource != null) {
+                enemySource.Play();
+            }
+
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<Collider>().enabled = false;
+            rb.isKinematic = true;
+
+            //Destroy(gameObject); // Breaks the loss audio in Four Seasons level
             winText.gameObject.SetActive(true);
             winText.text = "You Lose!";
 
